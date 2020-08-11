@@ -1,0 +1,26 @@
+version: 2.1
+
+orbs:
+  heroku: circleci/heroku@1.2.0
+
+workflows:
+  heroku_deploy:
+    jobs:
+      - deploy:
+          filters:
+            branches:
+              only: master
+
+jobs:
+  deploy:
+    docker:
+      - image: circleci/node:10.15.2-jessie-browsers-legacy
+    steps:
+      - checkout
+      - run:
+          name: Show current branch
+          command: echo ${CIRCLE_BRANCH}
+      - run:
+          name: Deploy Master to Heroku
+          command: |
+            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
