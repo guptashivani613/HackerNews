@@ -11,7 +11,9 @@
     "dev:ssr": "ng run HackerNews:serve-ssr",
     "serve:ssr": "node dist/HackerNews/server/main.js",
     "build:ssr": "ng build --prod && ng run HackerNews:server:production",
-    "prerender": "ng run HackerNews:prerender"
+    "prerender": "ng run HackerNews:prerender",
+    "start:heroku": "node dist/HackerNews/server/main.js"
+
   },
   "private": true,
   "dependencies": {
