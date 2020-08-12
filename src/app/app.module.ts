@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { PipeModule } from '../shared/pipes/pipe/pipe.module';
-
 import {TransferHttpCacheModule} from '@nguniversal/common';
 import {HttpClientModule} from '@angular/common/http';
 import { AppComponent } from './app.component';

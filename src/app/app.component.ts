@@ -4,7 +4,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { PageEvent, MatPaginator } from '@angular/material/paginator';
 import { UtilityService } from '../shared/services/utility.service';
 import { NewsFeedService } from '../shared/services/news-feed.service';
-
+import {Router} from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -115,6 +115,12 @@ export class AppComponent {
       this.view = [900,400];
     }else{
       this.view = [this.innerWidth - 30,400];
+    }
+  }
+
+  onRoute(url){
+    if(this.isBrowser){
+      window.open(url, "_blank");
     }
   }
 
