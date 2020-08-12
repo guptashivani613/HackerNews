@@ -1,4 +1,4 @@
 export const environment = {
-  production: false,
+  production: true,
   API_URL: 'https://hn.algolia.com/api/v1'
 };
