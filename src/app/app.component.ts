@@ -117,7 +117,6 @@ export class AppComponent {
       this.view = [this.innerWidth - 30,400];
     }
   }
-
   onRoute(url){
     if(this.isBrowser){
       window.open(url, "_blank");
