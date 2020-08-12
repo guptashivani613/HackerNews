@@ -37,13 +37,11 @@
     .mat-header-row {
       display: none;
     }
-  
     .mat-row { 
       flex-direction: column;
       align-items: start;
       padding: 8px 24px;
     }
-  
     .mat-cell:first-of-type, mat-header-cell:first-of-type, mat-footer-cell:first-of-type {
       padding-left: 0px !important;
     }
