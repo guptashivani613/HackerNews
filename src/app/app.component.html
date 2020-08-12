@@ -29,8 +29,8 @@
           {{element.title}}
           <span style="padding-left: 5px;"
            *ngIf="element.url != null">
-            <mat-hint *ngIf="element.url.startsWith('https://',0)"><a (click)="onRoute(element.url)">({{element.url.replace("https://","").substring(0,element.url.replace("https://","").indexOf('/'))}})</a> by <b>{{element.author}}</b> {{element.created_at | dateAgo}} <a (click)="onHide(element.objectID)"><b>[hide]</b></a></mat-hint>
-            <mat-hint *ngIf="element.url.startsWith('http://',0)"><a (click)="onRoute(element.url)">({{element.url.replace("http://","").substring(0,element.url.replace("http://","").indexOf('/'))}})</a> by <b>{{element.author}}</b> {{element.created_at | dateAgo}} <a (click)="onHide(element.objectID)"><b>[hide]</b></a></mat-hint>
+            <mat-hint *ngIf="element.url.startsWith('https://',0)"><a class="icon-css" (click)="onRoute(element.url)">({{element.url.replace("https://","").substring(0,element.url.replace("https://","").indexOf('/'))}})</a> by <b>{{element.author}}</b> {{element.created_at | dateAgo}} <a (click)="onHide(element.objectID)"><b>[hide]</b></a></mat-hint>
+            <mat-hint *ngIf="element.url.startsWith('http://',0)"><a class="icon-css" (click)="onRoute(element.url)">({{element.url.replace("http://","").substring(0,element.url.replace("http://","").indexOf('/'))}})</a> by <b>{{element.author}}</b> {{element.created_at | dateAgo}} <a (click)="onHide(element.objectID)"><b>[hide]</b></a></mat-hint>
           </span>
           <span style="padding-left: 5px;" *ngIf="element.url===null">
             <mat-hint>by <b>{{element.author}}</b> <span>  {{element.created_at | dateAgo}}</span> <a (click)="onHide(element.objectID)"><b>[hide]</b></a></mat-hint>
