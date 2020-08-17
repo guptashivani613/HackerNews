@@ -26,6 +26,10 @@
     flex: auto;
     width: 700px;
   }
+
+  .news-detailsCSS{
+    padding-left: 5px;
+  }
   @media(max-width: 768px) {
     .mobile-label {
       width: 80px;

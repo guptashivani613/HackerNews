@@ -1,4 +1,4 @@
-import { Component, HostListener, Inject, ViewChild, PLATFORM_ID,AfterViewInit } from '@angular/core';
+import { Component, HostListener, Inject, ViewChild, PLATFORM_ID,AfterViewInit, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { isPlatformBrowser } from '@angular/common';
 import { PageEvent, MatPaginator } from '@angular/material/paginator';
@@ -9,7 +9,7 @@ import { NewsFeedService } from '../shared/services/news-feed.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent implements OnInit, AfterViewInit {
   tableData: any =[];
   dataSource:any;
   pageSize = 4;
@@ -39,8 +39,6 @@ export class AppComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(private newsFeedService: NewsFeedService,
     private utilityService:UtilityService,@Inject(PLATFORM_ID) platformId: Object) {
-    this.tableData = this.utilityService.getData('data');
-    this.getPageData();
     this.isBrowser = isPlatformBrowser(platformId);
     if(this.isBrowser){
       this.innerWidth = window.innerWidth;
@@ -52,7 +50,17 @@ export class AppComponent implements AfterViewInit {
       }
     }
   }
+  ngOnInit(){
+    this.getPageData();
+  }
+  ngAfterViewInit() {
+    if(this.tableData !=null){
+    this.dataSource.paginator = this.paginator;
+    }
+  }
+
   getPageData(){
+    this.tableData = this.utilityService.getData('data');
     if(this.tableData == null){
       this.newsFeedService.getNewsItems().subscribe(res=>{
         this.tableData = res.hits;
@@ -64,11 +72,6 @@ export class AppComponent implements AfterViewInit {
     }else{
       this.dataSource = new MatTableDataSource<NewsData>(this.tableData);
       this.getGraph();
-    }
-  }
-  ngAfterViewInit() {
-    if(this.tableData !=null){
-    this.dataSource.paginator = this.paginator;
     }
   }
   getGraph(pageData?){
