@@ -41,6 +41,8 @@ export class AppComponent implements AfterViewInit {
   constructor(private newsFeedService: NewsFeedService,
     private utilityService:UtilityService,@Inject(PLATFORM_ID) platformId: Object) {
     this.isBrowser = isPlatformBrowser(platformId);
+    this.tableData = this.utilityService.getData('data');
+    this.getPageData();
     if(this.isBrowser){
       this.innerWidth = window.innerWidth;
       if(this.innerWidth > 768){
@@ -52,10 +54,6 @@ export class AppComponent implements AfterViewInit {
     }
   }
   
-  ngOnInit(){
-    this.tableData = this.utilityService.getData('data');
-    this.getPageData();
-  }
   getPageData(){
     if(this.tableData == null){
       this.newsFeedService.getNewsItems().subscribe(res=>{
