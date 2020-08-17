@@ -45,7 +45,6 @@
       (page)="getEvent(pageEvent=$event)">
     </mat-paginator>
   </div>
-
   <div style="background-color: blue; height:10px"></div>
     <ngx-charts-line-chart *ngIf="isBrowser"
       [view]="view"
@@ -58,8 +57,7 @@
       [xAxisLabel]="xAxisLabel"
       [yAxisLabel]="yAxisLabel"
       [timeline]="timeline"
-      [results]="newArray"
-      >
+      [results]="newArray">
     </ngx-charts-line-chart>
 </section>
 

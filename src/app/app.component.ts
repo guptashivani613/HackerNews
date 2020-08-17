@@ -1,10 +1,9 @@
-import { Component, HostListener, Inject, ViewChild, PLATFORM_ID, OnInit, AfterViewInit, AfterContentInit } from '@angular/core';
+import { Component, HostListener, Inject, ViewChild, PLATFORM_ID,AfterViewInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { isPlatformBrowser } from '@angular/common';
 import { PageEvent, MatPaginator } from '@angular/material/paginator';
 import { UtilityService } from '../shared/services/utility.service';
 import { NewsFeedService } from '../shared/services/news-feed.service';
-import {Router} from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -13,7 +12,7 @@ import {Router} from '@angular/router';
 export class AppComponent implements AfterViewInit {
   tableData: any =[];
   dataSource:any;
-  pageSize =4;
+  pageSize = 4;
   pageEvent: PageEvent;
   displayedColumns = ['comments', 'voteCount', 'upVote', 'newsDetails'];
   view: any[] = [];
@@ -40,9 +39,9 @@ export class AppComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(private newsFeedService: NewsFeedService,
     private utilityService:UtilityService,@Inject(PLATFORM_ID) platformId: Object) {
-    this.isBrowser = isPlatformBrowser(platformId);
     this.tableData = this.utilityService.getData('data');
     this.getPageData();
+    this.isBrowser = isPlatformBrowser(platformId);
     if(this.isBrowser){
       this.innerWidth = window.innerWidth;
       if(this.innerWidth > 768){
@@ -53,7 +52,6 @@ export class AppComponent implements AfterViewInit {
       }
     }
   }
-  
   getPageData(){
     if(this.tableData == null){
       this.newsFeedService.getNewsItems().subscribe(res=>{
@@ -92,6 +90,7 @@ export class AppComponent implements AfterViewInit {
    let objIndx = this.tableData.findIndex((obj => obj.objectID == id));
    this.tableData[objIndx].points = addedPoints;
    this.dataSource = new MatTableDataSource<NewsData>(this.tableData);
+   this.dataSource.paginator = this.paginator;
    this.utilityService.setData('data',this.tableData);
    this.getGraph();
   }

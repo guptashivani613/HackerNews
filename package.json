@@ -12,7 +12,8 @@
     "serve:ssr": "node dist/HackerNews/server/main.js",
     "build:ssr": "ng build --prod && ng run HackerNews:server:production",
     "prerender": "ng run HackerNews:prerender",
-    "start:heroku": "node dist/HackerNews/server/main.js"
+    "start:heroku": "node dist/HackerNews/server/main.js",
+    "postinstall": "npm run build:ssr" 
   },
   "private": true,
   "dependencies": {
@@ -31,6 +32,7 @@
     "@nguniversal/express-engine": "^10.0.1",
     "@swimlane/ngx-graph": "^7.1.1",
     "express": "^4.15.2",
+    "material-icons": "^0.3.1",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"
