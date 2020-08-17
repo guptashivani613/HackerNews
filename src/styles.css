@@ -2,6 +2,15 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.basic-container {
+  padding: 20px;
+}
 .icon-css{
   cursor: pointer !important;
+}
+
+@media(max-width: 768px) {
+  .basic-container {
+    padding: 0;
+  }
 }
