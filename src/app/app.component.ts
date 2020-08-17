@@ -17,7 +17,7 @@ export class AppComponent implements AfterViewInit {
   pageEvent: PageEvent;
   displayedColumns = ['comments', 'voteCount', 'upVote', 'newsDetails'];
   view: any[] = [];
-  newArray=[{"name":"","series":[]}];
+  newArray=[{"name":"vote","series":[]}];
   legend: boolean = false;
   animations: boolean = true;
   xAxis: boolean = true;
@@ -76,7 +76,7 @@ export class AppComponent implements AfterViewInit {
     }
   }
   getGraph(pageData?){
-    this.newArray = [{"name":"","series":[]}];
+    this.newArray = [{"name":"vote","series":[]}];
     if(pageData){
       this.finalArray = this.tableData.slice(pageData.pageSize*pageData.pageIndex, pageData.pageSize+pageData.pageSize*pageData.pageIndex);
     }else{
