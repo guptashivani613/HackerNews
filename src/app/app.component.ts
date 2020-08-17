@@ -1,4 +1,4 @@
-import { Component, HostListener, Inject, ViewChild, PLATFORM_ID } from '@angular/core';
+import { Component, HostListener, Inject, ViewChild, PLATFORM_ID, OnInit, AfterViewInit, AfterContentInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { isPlatformBrowser } from '@angular/common';
 import { PageEvent, MatPaginator } from '@angular/material/paginator';
@@ -10,17 +10,15 @@ import {Router} from '@angular/router';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
   tableData: any =[];
   dataSource:any;
   pageSize =4;
   pageEvent: PageEvent;
   displayedColumns = ['comments', 'voteCount', 'upVote', 'newsDetails'];
-  isMobile = true;
   view: any[] = [];
-  newArray=[{"name":"graphData","series":[]}];
+  newArray=[{"name":"","series":[]}];
   legend: boolean = false;
-  showLabels: boolean = true;
   animations: boolean = true;
   xAxis: boolean = true;
   yAxis: boolean = true;
@@ -29,9 +27,8 @@ export class AppComponent {
   xAxisLabel: string = 'Id';
   yAxisLabel: string = 'Vote';
   timeline: boolean = true;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
   colorScheme = {
-    domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
+    domain: ['#5AA454']
   };
   graphData: any;
   length: any;
@@ -39,21 +36,26 @@ export class AppComponent {
   finalArray: any[];
   innerWidth: number;
   isBrowser: any;
+  isMobile: boolean;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(private newsFeedService: NewsFeedService,
     private utilityService:UtilityService,@Inject(PLATFORM_ID) platformId: Object) {
     this.isBrowser = isPlatformBrowser(platformId);
-    this.tableData = this.utilityService.getData('data');
-    this.getPageData();
     if(this.isBrowser){
       this.innerWidth = window.innerWidth;
       if(this.innerWidth > 768){
         this.view = [900,400];
       }else{
         this.view = [this.innerWidth-30,400];
+        this.isMobile = true;
       }
     }
   }
   
+  ngOnInit(){
+    this.tableData = this.utilityService.getData('data');
+    this.getPageData();
+  }
   getPageData(){
     if(this.tableData == null){
       this.newsFeedService.getNewsItems().subscribe(res=>{
@@ -61,25 +63,26 @@ export class AppComponent {
         this.utilityService.setData('data',this.tableData);
         this.dataSource = new MatTableDataSource<NewsData>(this.tableData);
         this.dataSource.paginator = this.paginator;
-        this.length  = this.tableData.length;
         this.getGraph();
       });
     }else{
       this.dataSource = new MatTableDataSource<NewsData>(this.tableData);
-      this.dataSource.paginator = this.paginator;
-      this.length  = this.tableData.length;
       this.getGraph();
-      
+    }
+  }
+  ngAfterViewInit() {
+    if(this.tableData !=null){
+    this.dataSource.paginator = this.paginator;
     }
   }
   getGraph(pageData?){
-    this.newArray = [{"name":"graphData","series":[]}];
+    this.newArray = [{"name":"","series":[]}];
     if(pageData){
       this.finalArray = this.tableData.slice(pageData.pageSize*pageData.pageIndex, pageData.pageSize+pageData.pageSize*pageData.pageIndex);
     }else{
       this.finalArray = this.tableData.slice(0, 4);
     }
-    this.graphData= this.finalArray.map((item,index)=>{
+    this.graphData= this.finalArray.map((item)=>{
       return {'value':item.points,'name': item.objectID}
     });
     this.graphData.map(item=>{
@@ -91,7 +94,6 @@ export class AppComponent {
    let objIndx = this.tableData.findIndex((obj => obj.objectID == id));
    this.tableData[objIndx].points = addedPoints;
    this.dataSource = new MatTableDataSource<NewsData>(this.tableData);
-   this.dataSource.paginator = this.paginator;
    this.utilityService.setData('data',this.tableData);
    this.getGraph();
   }
@@ -114,6 +116,7 @@ export class AppComponent {
     if(this.innerWidth > 768){
       this.view = [900,400];
     }else{
+      this.isMobile = true;
       this.view = [this.innerWidth - 30,400];
     }
   }
@@ -122,7 +125,6 @@ export class AppComponent {
       window.open(url, "_blank");
     }
   }
-
 }
 export interface NewsData {
   comments: number;

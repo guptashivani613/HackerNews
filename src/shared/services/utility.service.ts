@@ -6,12 +6,10 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class UtilityService {
   isBrowser: boolean;
-
   constructor(@Inject(PLATFORM_ID) platformId: Object) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
-
-  // function for storing the data in localStorage
+  /* function for storing the data in localStorage  */
   setData(key, data) {
     if(this.isBrowser){
       localStorage.setItem(key, JSON.stringify(data));
@@ -19,8 +17,7 @@ export class UtilityService {
       return null;
     }
   }
-
-  // function for getting the data in localStorage
+  /* function for getting the data in localStorage */
   getData(key) {
     if(this.isBrowser){
       return JSON.parse(localStorage.getItem(key));

@@ -40,7 +40,7 @@
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
-    <mat-paginator [length]="length"
+    <mat-paginator 
       [pageSize]="pageSize" 
       (page)="getEvent(pageEvent=$event)">
     </mat-paginator>

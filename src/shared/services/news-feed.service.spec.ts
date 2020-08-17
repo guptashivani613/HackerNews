@@ -1,6 +1,7 @@
-import { TestBed } from '@angular/core/testing';
-
+import { TestBed, async, inject } from '@angular/core/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { NewsFeedService } from './news-feed.service';
+import { ApiService } from './api.service';
 
 describe('NewsFeedService', () => {
   let service: NewsFeedService;
@@ -9,8 +10,4 @@ describe('NewsFeedService', () => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(NewsFeedService);
   });
-
-//   it('should be created', () => {
-//     expect(service).toBeTruthy();
-//   });
 });
