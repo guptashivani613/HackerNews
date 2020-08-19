@@ -52,15 +52,12 @@ export class AppComponent implements AfterViewInit {
       }
     }
   }
-
   ngAfterViewInit() {
     if(this.tableData !=null){
     this.dataSource.paginator = this.paginator;
     }
   }
-
   getPageData(){
-   
     if(this.tableData == null){
       this.newsFeedService.getNewsItems().subscribe(res=>{
         this.tableData = res.hits;
@@ -68,7 +65,6 @@ export class AppComponent implements AfterViewInit {
         this.getGraph();
         this.dataSource = new MatTableDataSource<NewsData>(this.tableData);
         this.dataSource.paginator = this.paginator;
-       
       });
     }else{
       this.getGraph();
