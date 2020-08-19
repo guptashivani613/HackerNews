@@ -5,6 +5,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatSortModule,
     MatTableModule,
     MatFormFieldModule,
-    A11yModule
+    A11yModule,
+    MatTooltipModule
   ]
 })
 export class DemoMaterialModule {}

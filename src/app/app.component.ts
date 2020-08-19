@@ -9,7 +9,7 @@ import { NewsFeedService } from '../shared/services/news-feed.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent implements AfterViewInit {
   tableData: any =[];
   dataSource:any;
   pageSize = 4;
@@ -39,6 +39,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(private newsFeedService: NewsFeedService,
     private utilityService:UtilityService,@Inject(PLATFORM_ID) platformId: Object) {
+    this.tableData = this.utilityService.getData('data');
+    this.getPageData();
     this.isBrowser = isPlatformBrowser(platformId);
     if(this.isBrowser){
       this.innerWidth = window.innerWidth;
@@ -50,9 +52,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       }
     }
   }
-  ngOnInit(){
-    this.getPageData();
-  }
+
   ngAfterViewInit() {
     if(this.tableData !=null){
     this.dataSource.paginator = this.paginator;
@@ -60,18 +60,19 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   getPageData(){
-    this.tableData = this.utilityService.getData('data');
+   
     if(this.tableData == null){
       this.newsFeedService.getNewsItems().subscribe(res=>{
         this.tableData = res.hits;
         this.utilityService.setData('data',this.tableData);
+        this.getGraph();
         this.dataSource = new MatTableDataSource<NewsData>(this.tableData);
         this.dataSource.paginator = this.paginator;
-        this.getGraph();
+       
       });
     }else{
-      this.dataSource = new MatTableDataSource<NewsData>(this.tableData);
       this.getGraph();
+      this.dataSource = new MatTableDataSource<NewsData>(this.tableData);
     }
   }
   getGraph(pageData?){
@@ -125,6 +126,11 @@ export class AppComponent implements OnInit, AfterViewInit {
       window.open(url, "_blank");
     }
   }
+
+  @HostListener("window:onbeforeunload",["$event"])
+    clearLocalStorage(event){
+        this.utilityService.clearData('data');
+    }
 }
 export interface NewsData {
   comments: number;

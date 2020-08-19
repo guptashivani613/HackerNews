@@ -25,4 +25,10 @@ export class UtilityService {
       return null;
     }
   }
+
+// function for clearing particular key in localStorage
+  clearData(key) {
+    localStorage.removeItem(key);
+  }
+
 }

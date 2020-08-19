@@ -60,7 +60,8 @@
       [xAxisLabel]="xAxisLabel"
       [yAxisLabel]="yAxisLabel"
       [timeline]="timeline"
-      [results]="newArray">
+      [results]="newArray"
+      (select)="onSelect($event)">
     </ngx-charts-line-chart>
 </section>
 
