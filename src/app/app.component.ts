@@ -124,7 +124,7 @@ export class AppComponent implements AfterViewInit {
   }
 
   @HostListener("window:onbeforeunload",["$event"])
-    clearLocalStorage(event){
+    clearLocalStorage(event){ // clear data on window close event
         this.utilityService.clearData('data');
     }
 }
