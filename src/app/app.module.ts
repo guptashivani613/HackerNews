@@ -9,7 +9,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UtilityService } from '../shared/services/utility.service';
 import { NewsFeedService } from '../shared/services/news-feed.service';
 import { ApiService } from '../shared/services/api.service';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
@@ -22,7 +21,6 @@ import { environment } from '../environments/environment';
     HttpClientModule,
     PipeModule,
     DemoMaterialModule,
-    NgxChartsModule,
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserAnimationsModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })

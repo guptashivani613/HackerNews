@@ -1,66 +1,56 @@
 <section>
   <div class="example-container mat-elevation-z8">
-    <mat-table #table [dataSource]="dataSource" [class.isMobile]="isMobile">
-      <ng-container matColumnDef="comments" >
-        <mat-header-cell *matHeaderCellDef>Comment</mat-header-cell>
-        <mat-cell *matCellDef="let element" > 
-        <span class="mobile-label">Comments:</span>
-          {{element.num_comments}} 
-        </mat-cell>
+      <mat-table #table [dataSource]="dataSource" [class.isMobile]="isMobile" *ngIf="tableData.length">
+          <ng-container matColumnDef="comments">
+              <mat-header-cell *matHeaderCellDef>Comment</mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                  <span class="mobile-label">Comments:</span> {{element.num_comments}}
+              </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="voteCount">
+              <mat-header-cell *matHeaderCellDef> Vote Count </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                  <span class="mobile-label">Vote Count:</span> {{element.points}}
+              </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="upVote">
+              <mat-header-cell *matHeaderCellDef> upVote </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                  <span class="mobile-label">up vote:</span>
+                  <mat-icon class="icon-css" (click)="onUpVote(element.points,element.objectID)">arrow_drop_up</mat-icon>
+              </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="newsDetails">
+              <mat-header-cell *matHeaderCellDef> News Details </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                  <span class="mobile-label">News Details:</span> {{element.title}}
+                  <span class="news-detailsCSS" *ngIf="element.url != null">
+          <mat-hint *ngIf="element.url != null && element.url.startsWith('https://',0)">
+            <a class="icon-css" (click)="onRoute(element.url)">
+              ({{element.url.replace("https://","").substring(0,element.url.replace("https://","").indexOf('/'))}})
+            </a> by <b>{{element.author}}</b> {{element.created_at | dateAgo}} <a (click)="onHide(element.objectID)"><b>[hide]</b></a></mat-hint>
+          <mat-hint *ngIf="element.url.startsWith('http://',0)"><a class="icon-css" (click)="onRoute(element.url)">({{element.url.replace("http://","").substring(0,element.url.replace("http://","").indexOf('/'))}})</a> by <b>{{element.author}}</b> {{element.created_at | dateAgo}} <a (click)="onHide(element.objectID)"><b>[hide]</b></a></mat-hint>
+        </span>
+                  <span class="news-detailsCSS" *ngIf="element.url===null || element.url === ''">
+          <mat-hint>by <b>{{element.author}}</b> <span>  {{element.created_at | dateAgo}}</span> <a (click)="onHide(element.objectID)"><b>[hide]</b></a></mat-hint>
+                  </span>
+              </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+
+      <div *ngIf="tableData.length === 0" class="no-data">No records found.Please reload the page.</div>
+      <ng-container>
+          <mat-paginator [pageSize]="pageSize" [ngStyle]="{display: tableData.length ? 'block' : 'none'}" (page)="getEvent(pageEvent=$event)">
+          </mat-paginator>
       </ng-container>
-      <ng-container matColumnDef="voteCount">
-        <mat-header-cell *matHeaderCellDef> Vote Count </mat-header-cell>
-        <mat-cell *matCellDef="let element"> 
-          <span class="mobile-label">Vote Count:</span>
-          {{element.points}} 
-        </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="upVote">
-        <mat-header-cell *matHeaderCellDef> upVote </mat-header-cell>
-        <mat-cell *matCellDef="let element"> 
-          <span class="mobile-label">up vote:</span>
-           <mat-icon class="icon-css" (click)="onUpVote(element.points,element.objectID)">arrow_drop_up</mat-icon>
-        </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="newsDetails">
-        <mat-header-cell *matHeaderCellDef> News Details </mat-header-cell>
-        <mat-cell *matCellDef="let element"> 
-          <span class="mobile-label">News Details:</span>
-          {{element.title}}
-          <span class="news-detailsCSS"
-           *ngIf="element.url != null">
-            <mat-hint *ngIf="element.url != null && element.url.startsWith('https://',0)">
-              <a class="icon-css" (click)="onRoute(element.url)">
-                ({{element.url.replace("https://","").substring(0,element.url.replace("https://","").indexOf('/'))}})
-              </a> by <b>{{element.author}}</b> {{element.created_at | dateAgo}} <a (click)="onHide(element.objectID)"><b>[hide]</b></a></mat-hint>
-            <mat-hint *ngIf="element.url.startsWith('http://',0)"><a class="icon-css" (click)="onRoute(element.url)">({{element.url.replace("http://","").substring(0,element.url.replace("http://","").indexOf('/'))}})</a> by <b>{{element.author}}</b> {{element.created_at | dateAgo}} <a (click)="onHide(element.objectID)"><b>[hide]</b></a></mat-hint>
-          </span>
-          <span class="news-detailsCSS" *ngIf="element.url===null">
-            <mat-hint>by <b>{{element.author}}</b> <span>  {{element.created_at | dateAgo}}</span> <a (click)="onHide(element.objectID)"><b>[hide]</b></a></mat-hint>
-          </span>
-          </mat-cell> 
-      </ng-container>
-     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    </mat-table>
-    <mat-paginator 
-      [pageSize]="pageSize" 
-      (page)="getEvent(pageEvent=$event)">
-    </mat-paginator>
+
   </div>
   <div style="background-color: blue; height:10px"></div>
-    <ngx-charts-line-chart *ngIf="isBrowser"
-      [view]="view"
-      [scheme]="colorScheme"
-      [legend]="legend"
-      [showXAxisLabel]="showXAxisLabel"
-      [showYAxisLabel]="showYAxisLabel"
-      [xAxis]="xAxis"
-      [yAxis]="yAxis"
-      [xAxisLabel]="xAxisLabel"
-      [yAxisLabel]="yAxisLabel"
-      [timeline]="timeline"
-      [results]="newArray">
-    </ngx-charts-line-chart>
+  <div layout="row" layout-xs="column">
+      <div flex>
+          <canvas id="line-chart" height="85px"></canvas>
+      </div>
+  </div>
 </section>
-

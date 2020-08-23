@@ -175,5 +175,8 @@
       }
     }
   },
-  "defaultProject": "HackerNews"
+  "defaultProject": "HackerNews",
+  "cli": {
+    "analytics": "89363357-8dee-4453-bc7f-c54ad6b09868"
+  }
 }
