@@ -14,7 +14,7 @@ import Chart from 'chart.js';
 export class AppComponent implements AfterViewInit {
   tableData: any = [];
   dataSource: any;
-  pageSize = 4;
+  pageSize = 5;
   pageEvent: PageEvent;
   displayedColumns = ['comments', 'voteCount', 'upVote', 'newsDetails'];
   graphData: any;
@@ -28,6 +28,8 @@ export class AppComponent implements AfterViewInit {
   lineChart: any;
   upVoteId: any;
   timeout: any;
+  currentPageData: any;
+  noRecordMessage: string;
   constructor(private newsFeedService: NewsFeedService,
     private utilityService: UtilityService, @Inject(PLATFORM_ID) platformId: Object) {
     this.tableData = this.utilityService.getData('data') ? this.utilityService.getData('data') : [];
@@ -96,11 +98,29 @@ export class AppComponent implements AfterViewInit {
       this.lineChart.destroy();
     }
   }
-  getGraph(pageData?){
-    if (pageData){
-      this.finalArray = this.tableData.slice(pageData.pageSize * pageData.pageIndex, pageData.pageSize + pageData.pageSize * pageData.pageIndex);
+  getGraph(pageData?){ 
+    if(pageData && this.tableData.length>pageData.pageSize){
+      var startIndex = this.pageSize*pageData.pageIndex;
+      var endIndex = startIndex+this.pageSize;
+      console.log("generic",startIndex,endIndex,pageData.pageIndex);
+      if(this.tableData.length>=endIndex){
+          this.finalArray = this.tableData.slice(startIndex, endIndex);
+      }else{
+        if(this.tableData.length == startIndex){
+          this.finalArray = this.tableData.slice(this.tableData.length-this.pageSize, this.tableData.length);
+        }else{
+          if(startIndex>this.tableData.length){
+              this.finalArray = this.tableData.slice(startIndex-this.pageSize ==this.tableData.length || startIndex-this.pageSize-this.tableData.length>=1&& startIndex-this.pageSize-this.tableData.length<=this.pageSize?this.pageSize:startIndex-this.pageSize, this.tableData.length);
+          }else if(this.tableData.length == endIndex){
+           
+            this.finalArray = this.tableData.slice(startIndex-this.pageSize, endIndex);
+           }else{
+            this.finalArray = this.tableData.slice(startIndex, this.tableData.length);
+           }
+        }
+      }
     }else{
-      this.finalArray = this.tableData.slice(0, 4);
+      this.finalArray = this.tableData.slice(0,this.pageSize);
     }
     this.graphData = this.finalArray.map((item) => {
       return {value: item.points, name: item.objectID};
@@ -123,9 +143,18 @@ export class AppComponent implements AfterViewInit {
     this.utilityService.setData('data', this.tableData);
     this.dataSource = new MatTableDataSource<NewsData>(this.tableData);
     this.dataSource.paginator = this.paginator;
-    this.getGraph();
+    this.tableData = this.utilityService.getData('data');
+    if(this.tableData.length ==0){
+      this.noRecordMessage = "No records found. Please refresh the page."
+    }
+    if(!this.currentPageData){
+      this.getGraph();
+    }else{
+      this.getGraph(this.pageEvent);
+    }
   }
   getEvent(pageEvent){
+    this.currentPageData = pageEvent;
    this.getGraph(pageEvent);
   }
   @HostListener('window:resize', ['$event'])
@@ -143,7 +172,7 @@ export class AppComponent implements AfterViewInit {
     }
   }
   drawChart() {
-    this.finalArray = this.tableData.slice(0, 4);
+    this.finalArray = this.tableData.slice(0, this.pageSize);
     this.graphData = this.finalArray.map((item) => {
       return {
         value: item.points,

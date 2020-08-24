@@ -28,18 +28,18 @@
           <mat-hint *ngIf="element.url != null && element.url.startsWith('https://',0)">
             <a class="icon-css" (click)="onRoute(element.url)">
               ({{element.url.replace("https://","").substring(0,element.url.replace("https://","").indexOf('/'))}})
-            </a> by <b>{{element.author}}</b> {{element.created_at | dateAgo}} <a (click)="onHide(element.objectID)"><b>[hide]</b></a></mat-hint>
-          <mat-hint *ngIf="element.url.startsWith('http://',0)"><a class="icon-css" (click)="onRoute(element.url)">({{element.url.replace("http://","").substring(0,element.url.replace("http://","").indexOf('/'))}})</a> by <b>{{element.author}}</b> {{element.created_at | dateAgo}} <a (click)="onHide(element.objectID)"><b>[hide]</b></a></mat-hint>
+            </a> by <b>{{element.author}}</b> {{element.created_at | dateAgo}} <a class="icon-css" (click)="onHide(element.objectID)"><b>[hide]</b></a></mat-hint>
+          <mat-hint *ngIf="element.url.startsWith('http://',0)"><a class="icon-css" (click)="onRoute(element.url)">({{element.url.replace("http://","").substring(0,element.url.replace("http://","").indexOf('/'))}})</a> by <b>{{element.author}}</b> {{element.created_at | dateAgo}} <a class="icon-css" (click)="onHide(element.objectID)"><b>[hide]</b></a></mat-hint>
         </span>
         <span class="news-detailsCSS" *ngIf="element.url===null || element.url === ''">
-        <mat-hint>by <b>{{element.author}}</b> <span>  {{element.created_at | dateAgo}}</span> <a (click)="onHide(element.objectID)"><b>[hide]</b></a></mat-hint>
+        <mat-hint>by <b>{{element.author}}</b> <span>  {{element.created_at | dateAgo}}</span> <a class="icon-css" (click)="onHide(element.objectID)"><b>[hide]</b></a></mat-hint>
         </span>
         </mat-cell>
       </ng-container>
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
-    <div *ngIf="tableData.length === 0" class="no-data">No records found.Please reload the page.</div>
+    <div  [ngStyle]="{display:tableData.length?'none':'block'}" class="no-data">{{noRecordMessage}}</div>
     <mat-paginator [pageSize]="pageSize" [ngStyle]="{display: tableData.length ? 'block' : 'none'}" (page)="getEvent(pageEvent=$event)">
     </mat-paginator>
   </div>
