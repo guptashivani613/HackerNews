@@ -29,6 +29,10 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
+## Lighthouse Performance
+<img width="1410" alt="Screenshot 2020-08-24 at 10 17 39 AM" src="https://user-images.githubusercontent.com/36587694/91005047-77538f80-e5f3-11ea-924e-e7aa95572e34.png">
+
+
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
