@@ -18,8 +18,6 @@ export class AppComponent implements AfterViewInit {
   pageEvent: PageEvent;
   displayedColumns = ['comments', 'voteCount', 'upVote', 'newsDetails'];
   graphData: any;
-  length: any;
-  pageData: any;
   finalArray: any[];
   innerWidth: number;
   isBrowser: any;
@@ -99,6 +97,7 @@ export class AppComponent implements AfterViewInit {
     }
   }
   getGraph(pageData?){ 
+    this.currentPageData = pageData;
     if(pageData && this.tableData.length>pageData.pageSize){
       var startIndex = this.pageSize*pageData.pageIndex;
       var endIndex = startIndex+this.pageSize;
@@ -135,7 +134,7 @@ export class AppComponent implements AfterViewInit {
    this.dataSource = new MatTableDataSource<NewsData>(this.tableData);
    this.dataSource.paginator = this.paginator;
    this.utilityService.setData('data', this.tableData);
-   this.getGraph();
+   this.getGraph(this.currentPageData);
   }
   onHide(data){
     let objIndx = this.tableData.findIndex(obj => obj.objectID == data);
