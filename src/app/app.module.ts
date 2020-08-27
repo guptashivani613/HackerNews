@@ -11,10 +11,14 @@ import { NewsFeedService } from '../shared/services/news-feed.service';
 import { ApiService } from '../shared/services/api.service';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { BackendIntegrationComponent } from './backend-integration/backend-integration.component';
+import { LineChartComponent } from './line-chart/line-chart.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    BackendIntegrationComponent,
+    LineChartComponent
   ],
   imports: [
     TransferHttpCacheModule,

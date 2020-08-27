@@ -31,4 +31,8 @@ export class UtilityService {
     localStorage.removeItem(key);
   }
 
+  clearAll() {
+    localStorage.clear();
+  }
+
 }

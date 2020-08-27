@@ -1,0 +1,59 @@
+<section>
+  <div class='main-container'>
+    <div class="example-container mat-elevation-z4">
+      <mat-table #table [dataSource]="dataSource" [class.isMobile]="isMobile" *ngIf="tableData.length">
+        <ng-container matColumnDef="comments">
+          <mat-header-cell *matHeaderCellDef class="header-style">Comment</mat-header-cell>
+          <mat-cell *matCellDef="let element; let i = index;" >
+              <span class="mobile-label" >Comments:</span>{{element.num_comments}}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="voteCount">
+          <mat-header-cell *matHeaderCellDef> Vote Count </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+              <span class="mobile-label">Vote Count:</span> {{element.points}}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="upVote">
+           <mat-header-cell *matHeaderCellDef> upVote </mat-header-cell>
+           <mat-cell *matCellDef="let element">
+               <span class="mobile-label">up vote:</span>
+               <mat-icon class="icon-css" (click)="onUpVote(element.points,element.objectID)">arrow_drop_up</mat-icon>
+           </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="newsDetails">
+          <mat-header-cell *matHeaderCellDef> News Details </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+          <span class="mobile-label">News Details:</span> {{element.title}}
+          <span class="news-detailsCSS" *ngIf="element.url != null">
+            <mat-hint *ngIf="element.url != null && element.url.startsWith('https://',0)">
+              <a class="icon-css" (click)="onRoute(element.url)">
+                ({{element.url.replace("https://","").substring(0,element.url.replace("https://","").indexOf('/'))}})
+              </a> by <b>{{element.author}}</b> {{element.created_at | dateAgo}} <a class="icon-css" (click)="onHide(element.objectID)"><b>[hide]</b></a></mat-hint>
+            <mat-hint *ngIf="element.url.startsWith('http://',0)"><a class="icon-css" (click)="onRoute(element.url)">({{element.url.replace("http://","").substring(0,element.url.replace("http://","").indexOf('/'))}})</a> by <b>{{element.author}}</b> {{element.created_at | dateAgo}} <a class="icon-css" (click)="onHide(element.objectID)"><b>[hide]</b></a></mat-hint>
+          </span>
+          <span class="news-detailsCSS" *ngIf="element.url===null || element.url === ''">
+          <mat-hint>by <b>{{element.author}}</b> <span>  {{element.created_at | dateAgo}}</span> <a class="icon-css" (click)="onHide(element.objectID)"><b>[hide]</b></a></mat-hint>
+          </span>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;  let even = even; " [class.rowStyle]="row['myColumn']=='3'" [ngClass]="{gray: even}"></mat-row>
+      </mat-table>
+      <div [ngStyle]="{display:tableData.length?'none':'block'}" class="no-data">{{noRecordMessage}}</div>
+      <mat-paginator 
+        [length]="recordSize"
+        [pageSize]="pageSize" 
+        (page)="getEvent($event)"
+        >
+      </mat-paginator>
+    </div>
+    <div style="background-color: #ff781f; height:5px"></div>
+    <div layout="row" layout-xs="column" *ngIf="tableData.length" class="mat-elevation-z4 chart-container">
+      <div flex>
+        <app-line-chart [data]='graphData'></app-line-chart>
+        <div style="background-color:#ff781f; height:5px"></div>
+      </div>
+    </div>
+  </div>
+  </section>

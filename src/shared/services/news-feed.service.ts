@@ -10,7 +10,7 @@ import { ApiService } from './api.service';
 export class NewsFeedService {
 
   constructor(private apiService:ApiService) { }
-  getNewsItems(){
-     return this.apiService.get(apiUrl.getItems);
+  getNewsItems(pageSize, pageIndex){
+     return this.apiService.get(`${apiUrl.getItems}&page=${pageIndex}&hitsPerPage=${pageSize}`);
   }
 }

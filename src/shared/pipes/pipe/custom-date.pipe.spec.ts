@@ -5,7 +5,6 @@ var currentDate = d.toISOString();
 var minute=d.setMinutes(d.getMinutes()-30); 
 var extract30Minutes =new Date(minute);
 var currentDate2 = extract30Minutes.toISOString();
-console.log(currentDate2);
 describe('CustomDatePipe', () => {
   it('create an instance', () => {
     const pipe = new CustomDatePipe();

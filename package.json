@@ -32,6 +32,7 @@
     "@swimlane/ngx-graph": "^7.1.1",
     "chart.js": "^2.9.3",
     "express": "^4.15.2",
+    "highcharts": "^8.2.0",
     "material-icons": "^0.3.1",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",

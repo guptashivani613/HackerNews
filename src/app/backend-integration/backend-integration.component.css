@@ -1,0 +1,115 @@
+.example-container {
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+  min-width: 300px;
+  background-color: '#FFE5CC';
+}
+  
+.mat-table {
+  overflow: auto;
+  max-height: 500px;
+}
+
+.mobile-label {
+  display: none;
+}
+
+.gray { background-color: #f5f5f5 }
+
+.rowStyle{
+  background-color:red;
+  font-weight: bold;
+}
+
+.mat-cell,
+mat-header-cell,
+mat-footer-cell {
+  width: 140px;
+  display: inherit !important;
+}
+
+.mat-cell:last-of-type,
+mat-header-cell:last-of-type,
+mat-footer-cell:last-of-type {
+  padding-right: 24px;
+  flex: auto;
+  width: 700px;
+}
+  
+  .news-detailsCSS {
+    padding-left: 5px;
+  }
+  
+  .no-data {
+    text-align: center;
+    padding-top: 170px;
+    height: 400px;
+  }
+
+  .chart-container {
+    margin-top: 10px;
+  }
+
+  mat-header-cell {
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #ff781f;
+    color: white;
+  }
+
+  .main-container {
+    border-width: 3px;
+    border-color:black;
+    border-style: groove;
+    padding: 10px;
+    margin: 0 20px;
+  }
+  
+  @media(max-width: 768px) {
+    .mobile-label {
+        width: 80px;
+        display: inline-block;
+        font-weight: bold;
+        padding-right: 9px;
+    }
+    .mat-header-row {
+        display: none;
+    }
+    .mat-row {
+        flex-direction: column;
+        align-items: start;
+        padding: 8px 24px;
+    }
+    .mat-cell:first-of-type,
+    mat-header-cell:first-of-type,
+    mat-footer-cell:first-of-type {
+        padding-left: 0px !important;
+    }
+    .mat-cell:last-of-type,
+    mat-header-cell:last-of-type,
+    mat-footer-cell:last-of-type {
+        padding-right: 24px;
+        flex: auto;
+        width: min-content;
+    }
+    .mat-cell,
+    .mat-footer-cell {
+        font-size: 11px;
+    }
+    .example-container {
+        display: flex;
+        flex-direction: column;
+        max-height: 500px;
+        min-width: 300px;
+    }
+    .chart-container {
+      margin-top: 10px;
+    }
+
+    .no-data {
+      text-align: center;
+      padding-top: 100px;
+      height: 200px;
+    }
+  }
