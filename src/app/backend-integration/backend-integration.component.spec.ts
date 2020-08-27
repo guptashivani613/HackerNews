@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BackendIntegrationComponent } from './backend-integration.component';
+import { ApiService } from 'src/shared/services/api.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('BackendIntegrationComponent', () => {
   let component: BackendIntegrationComponent;
@@ -8,7 +10,9 @@ describe('BackendIntegrationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BackendIntegrationComponent ]
+      imports:[HttpClientTestingModule],
+      declarations: [ BackendIntegrationComponent ],
+      providers:[ApiService]
     })
     .compileComponents();
   }));

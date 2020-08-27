@@ -7,11 +7,13 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 1) Used angular material for the crisp UI
 2) Used Highcharts for the better graph representation and the updation feature
 3) Local Storage to make the app persistence
-4) graph and data updation on hide and data upgrade
-5) maintain the length with the data hide
-6) Delete functionality to be implemented at the backend right now we delete the element of a particular page while rest remains the same to reduce the unnecessary overload.
+4) Graph and data updation on hide and data upgrade
+5) Maintain the length with the data hide.
+6) Used server side pagination.
+6) Delete functionality to be implemented at the backend right now we hide the element of a particular page while rest remains the same to reduce the unnecessary overload.
 Right now it shows table is empty and allows you to move further
-Refresh functionality maintains the current state that has been modified by the user
+Refresh functionality maintains the current state that has been modified by the user.
+7) All the changes has been done accordingly so that will take minimum modification to integrate othe api to update the data dynamically.
 
 
 ## Development server
