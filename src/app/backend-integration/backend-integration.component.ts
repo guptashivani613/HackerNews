@@ -51,7 +51,7 @@ export class BackendIntegrationComponent implements AfterViewInit {
       this.newsFeedService.getNewsItems(pageSize, pageIndex).subscribe(res => {
         this.tableData = res.hits;
         if (this.tableData.length === 0) {
-          this.noRecordMessage = "No records found. Please refresh the page."
+          this.noRecordMessage = "No records found. Please go to the next page."
         }
         this.recordSize = (res.nbPages * res.hitsPerPage) - this.deletedNode;
         this.dataSource = this.tableData;
@@ -117,7 +117,7 @@ export class BackendIntegrationComponent implements AfterViewInit {
     this.dataSource = this.tableData;
     this.tableData = this.utilityService.getData(this.pageIndex);
     if (this.tableData.length === 0) {
-      this.noRecordMessage = "No records found. Please refresh the page."
+      this.noRecordMessage = "No records found. Please go the next page if it is not disabled"
     }
     this.recordSize = this.recordSize - 1;
     this.utilityService.setData('recordSize', this.recordSize);

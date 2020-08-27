@@ -2,6 +2,18 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.5.
 
+## Approach
+
+1) Used angular material for the crisp UI
+2) Used Highcharts for the better graph representation and the updation feature
+3) Local Storage to make the app persistence
+4) graph and data updation on hide and data upgrade
+5) maintain the length with the data hide
+6) Delete functionality to be implemented at the backend right now we delete the element of a particular page while rest remains the same to reduce the unnecessary overload.
+Right now it shows table is empty and allows you to move further
+Refresh functionality maintains the current state that has been modified by the user
+
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
@@ -30,7 +42,8 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
 ## Lighthouse Performance
-<img width="1410" alt="Screenshot 2020-08-24 at 10 17 39 AM" src="https://user-images.githubusercontent.com/36587694/91005047-77538f80-e5f3-11ea-924e-e7aa95572e34.png">
+<img width="1425" alt="Screenshot 2020-08-27 at 7 05 30 PM" src="https://user-images.githubusercontent.com/36587694/91449264-873fcd80-e898-11ea-9df5-86314131c34d.png">
+
 
 
 ## Further help
