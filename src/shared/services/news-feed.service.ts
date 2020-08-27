@@ -11,6 +11,6 @@ export class NewsFeedService {
 
   constructor(private apiService:ApiService) { }
   getNewsItems(pageSize, pageIndex){
-     return this.apiService.get(`${apiUrl.getItems}&page=${pageIndex}&hitsPerPage=${pageSize}`);
+     return this.apiService.get(`${apiUrl.getItems}&page=${pageIndex + 1}&hitsPerPage=${pageSize}`);
   }
 }

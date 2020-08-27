@@ -37,7 +37,7 @@
           </span>
           </mat-cell>
         </ng-container>
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-header-row *matHeaderRowDef="displayedColumns sticky:true"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;  let even = even; " [class.rowStyle]="row['myColumn']=='3'" [ngClass]="{gray: even}"></mat-row>
       </mat-table>
       <div [ngStyle]="{display:tableData.length?'none':'block'}" class="no-data">{{noRecordMessage}}</div>

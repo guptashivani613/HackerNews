@@ -21,7 +21,10 @@ export class LineChartComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    this.chart.update({series: this.data});
+
+    if (this.chart) {
+      this.chart.update({series: this.data});
+    }
   }
 
   setData() {
@@ -53,6 +56,13 @@ export class LineChartComponent implements OnInit, OnChanges {
       tooltip: {
         crosshairs: true,
         shared: true
+      },
+      plotOptions: {
+       marker: {
+          enabled: true,
+          radius: 4,
+          fillColor: 'red'
+        },
       },
       credits: {
         enabled:  false

@@ -1,4 +1,4 @@
-import { Component, HostListener, Inject, ViewChild, PLATFORM_ID, AfterViewInit, OnInit } from '@angular/core';
+import { Component, HostListener, Inject, ViewChild, PLATFORM_ID, AfterViewInit } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { PageEvent, MatPaginator } from '@angular/material/paginator';
 import { UtilityService } from '../../shared/services/utility.service';
@@ -23,6 +23,7 @@ export class BackendIntegrationComponent implements AfterViewInit {
   noRecordMessage: string;
   recordSize = 0;
   graphData = [];
+  deletedNode = 0;
 
   constructor(private newsFeedService: NewsFeedService,
     private utilityService: UtilityService, @Inject(PLATFORM_ID) platformId: Object) {
@@ -52,7 +53,7 @@ export class BackendIntegrationComponent implements AfterViewInit {
         if (this.tableData.length === 0) {
           this.noRecordMessage = "No records found. Please refresh the page."
         }
-        this.recordSize = res.nbPages * res.hitsPerPage;
+        this.recordSize = (res.nbPages * res.hitsPerPage) - this.deletedNode;
         this.dataSource = this.tableData;
         const data = {};
         for (const userObject of this.tableData) {
@@ -118,6 +119,8 @@ export class BackendIntegrationComponent implements AfterViewInit {
     if (this.tableData.length === 0) {
       this.noRecordMessage = "No records found. Please refresh the page."
     }
+    this.recordSize = this.recordSize - 1;
+    this.utilityService.setData('recordSize', this.recordSize);
     this.convertValue();
   }
 
