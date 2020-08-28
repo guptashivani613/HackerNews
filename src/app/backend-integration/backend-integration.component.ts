@@ -29,6 +29,7 @@ export class BackendIntegrationComponent implements AfterViewInit {
     private utilityService: UtilityService, @Inject(PLATFORM_ID) platformId: Object) {
     this.tableData = this.utilityService.getData(this.pageIndex) ? this.utilityService.getData(this.pageIndex) : [];
     this.recordSize = this.utilityService.getData('recordSize') ? this.utilityService.getData('recordSize') : 0;
+    this.deletedNode = this.utilityService.getData('deletedNode') ? this.utilityService.getData('deletedNode') : 0;
     this.getPageData(this.pageSize, this.pageIndex);
     this.isBrowser = isPlatformBrowser(platformId);
     if (this.isBrowser){
@@ -120,7 +121,10 @@ export class BackendIntegrationComponent implements AfterViewInit {
       this.noRecordMessage = "No records found. Please refresh the page."
     }
     this.recordSize = this.recordSize - 1;
+    this.deletedNode = this.deletedNode + 1;
     this.utilityService.setData('recordSize', this.recordSize);
+    this.utilityService.setData('deletedNode', this.deletedNode);
+
     this.convertValue();
   }
 
