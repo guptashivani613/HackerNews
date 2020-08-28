@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {apiUrl} from '../../app/constant';
-import {HttpClient} from '@angular/common/http';
 import { ApiService } from './api.service';
 
 
