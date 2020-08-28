@@ -10,10 +10,11 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 4) Graph and data updation on hide and data upgrade
 5) Maintain the length with the data hide.
 6) Used server side pagination.
-6) Delete functionality to be implemented at the backend right now we hide the element of a particular page while rest remains the same to reduce the unnecessary overload.
-Right now it shows table is empty and allows you to move further
+7) Hide functionality wordks on the page basis as it will reduces the overusage of localStorage.Rest it can be handled using the backend api.
+ Delete functionality to be implemented at the backend right now we hide the element of a particular page while rest remains the same to reduce the unnecessary overload.
+ Right now it shows table is empty and allows you to move further
 Refresh functionality maintains the current state that has been modified by the user.
-7) All the changes has been done accordingly so that will take minimum modification to integrate othe api to update the data dynamically.
+8) All the changes has been done accordingly so that will take minimum modification to integrate othe api to update the data dynamically.
 
 
 ## Development server
